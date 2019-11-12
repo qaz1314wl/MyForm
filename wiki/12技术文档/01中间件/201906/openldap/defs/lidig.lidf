@@ -1,0 +1,13 @@
+dn: dc=lidig,dc=com
+objectclass: dcObject
+objectclass: organization
+o: Lidig Corp
+dc: Lidig
+userPassword: [密码明文: SSHA hash过的值]
+
+dn: o=lidig,dc=lidig,dc=com
+objectclass: dcObject
+objectclass: organization
+o: Lidig Corp
+dc: Lidig
+userPassword: [密码明文: SSHA hash过的值]

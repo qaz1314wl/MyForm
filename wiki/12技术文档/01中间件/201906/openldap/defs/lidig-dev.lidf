@@ -1,0 +1,5 @@
+dn: ou=rd,o=lidig,dc=lidig,dc=com
+objectclass: organizationalUnit
+description: Dept. R&D
+ou=Research & Develop
+userPassword: [密码明文: SSHA hash过的值]

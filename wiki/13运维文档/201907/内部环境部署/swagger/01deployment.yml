@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: swagger-editor-deployment
+  labels:
+    app: swagger-editor
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      devtool: swagger
+  template:
+    metadata:
+      name: swagger-editor
+      labels:
+        devtool: swagger
+    spec:
+      containers:
+        - name: swagger-editor
+          image: swaggerapi/swagger-editor
+
+          resources:
+            requests:
+              memory: "1024M"
+            limits:
+              memory: "2048M"

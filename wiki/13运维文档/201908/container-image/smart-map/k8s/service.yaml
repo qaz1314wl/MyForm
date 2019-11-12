@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: smart-community-map-service
+  namespace: dev-test
+  labels:
+    app: smart-community-map
+    version: 1.0.0
+spec:
+  selector:
+    app: smart-community-map
+    version: 1.0.0
+  ports:
+    - name: web
+      protocol: TCP
+      port: 80
+    - name: web1
+      protocol: TCP
+      port: 25001
+    - name: web2
+      protocol: TCP
+      port: 25002
+    - name: web3
+      protocol: TCP
+      port: 25003
+  type: LoadBalancer

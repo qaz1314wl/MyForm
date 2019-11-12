@@ -1,0 +1,13 @@
+version: '3.2'
+
+services:
+  apidoc:
+    image: "oopschen/swagger-autodoc"
+    ports:
+      - "${APIDOC_PORT:-8082}:8082"
+    volumes:
+      - type: bind
+        source: ./misc/apidoc
+        target: /var/lib/swagger-autodoc/apis
+        volume:
+          readonly: true

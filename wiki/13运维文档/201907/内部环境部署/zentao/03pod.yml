@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: zentao
+  labels:
+    devtools: zentao
+spec:
+  containers:
+    - name: zentao-php
+      image: 192.168.70.225/lidig-zentao:1.0.1
+      env:
+        - name: ENV_ZENTAO_PMS_UPDATE_URL
+          value: http://dl.cnezsoft.com/zentao/11.6.1/ZenTaoPMS.11.6.1.zip
+        - name: DOWNLOAD_ZENTAO_PMS_URL
+          value: http://192.168.70.233/zentao-upgrade/zentao-backup.tar.xz
+      resources:
+        requests:
+          memory: "1024M"
+        limits:
+          memory: "2048M"
+      volumeMounts:
+        - mountPath: /var/www/zentaopms
+          name: vol-www
+
+    - name: web-server
+      image: nginx:alpine
+      resources:
+        requests:
+          memory: "256M"
+        limits:
+          memory: "512M"
+      volumeMounts:
+        - mountPath: /etc/nginx/conf.d/
+          name: cm-vol-nginx-conf-zentao
+        - mountPath: /var/www/zentaopms
+          name: vol-www
+
+  volumes:
+    - name: vol-www
+      persistentVolumeClaim:
+        claimName: zentao-pvc
+    - name: cm-vol-nginx-conf-zentao
+      configMap:
+        name: zentao
+        items:
+          - path: zentao.conf
+            key: zentao.conf

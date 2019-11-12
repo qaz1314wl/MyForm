@@ -1,0 +1,9 @@
+dn: cn=[拼音全称如chenlei],ou=rd,o=lidig,dc=lidig,dc=com
+objectclass: inetOrgPerson
+sn: [姓，如chen]
+gn: [名，如磊]
+mail: [公司邮箱，xxx@lidig.com]
+employeeType: [员工类型，Staff:正式员工; Intern：实习生]
+displayName: [中文名称，陈磊]
+title: [用于区分工程师类型，backend|frontend|hardware]
+userPassword: [密码明文: SSHA hash过的值]

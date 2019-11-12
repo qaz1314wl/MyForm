@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: internal-share-deployment
+  labels:
+    app: internal-share
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      devtools: samba
+  template:
+    metadata:
+      name: internal-share
+      labels:
+        devtools: samba
+    spec:
+      containers:
+        - name: samba
+          image: dperson/samba
+          env:
+            - name: TZ
+              value: "Asia/Shanghai"
+            - name: USERID
+              value: "1024"
+            - name: GROUPID
+              value: "1024"
+            - name: PERMISSIONS
+              value: "0755"
+          args:
+            - -uproduct;prd-lidig201909
+            - -uldyf;ldyf-lidig201909
+            - -sldyf-public;/home/smb-share/ldyf-public;yes;no
+            - -sldyf;/home/smb-share/ldyf;no;no;no;ldyf
+            - -sproduct;/home/smb-share/product;no;no;no;product
+
+          resources:
+            requests:
+              memory: "512M"
+            limits:
+              memory: "2048M"
+          volumeMounts:
+            - mountPath: /home/smb-share
+              name: internal-share-data
+
+        - name: nginx
+          image: nginx:alpine
+
+          resources:
+            requests:
+              memory: "128M"
+            limits:
+              memory: "1024M"
+          volumeMounts:
+            - mountPath: /etc/nginx/conf.d
+              name: internal-share-nginx-conf
+            - mountPath: /mnt/smb-share
+              name: internal-share-data
+
+      volumes:
+        - name: internal-share-nginx-conf
+          configMap:
+            name: internal-share
+            items:
+              - path: internal-share.conf
+                key: server.conf
+        - name: internal-share-data
+          persistentVolumeClaim:
+            claimName: samba-pvc
+

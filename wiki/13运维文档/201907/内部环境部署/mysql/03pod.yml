@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql-database
+  labels:
+    db: mysql
+spec:
+  containers:
+    - name: mysql-database
+      image: mysql:5.7
+      env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: ldkjmysqlpwd
+        - name: MYSQL_DATABASE
+          value: test
+        - name: MYSQL_USER
+          value: test
+        - name: MYSQL_PASSWORD
+          value: testmysqlpwd
+      args:
+        - '--character-set-server=utf8mb4'
+        - '--collation-server=utf8mb4_unicode_ci'
+        - '--log-bin=binlog'
+        - '--server-id=201907001'
+        - '--innodb-data-file-path=ibdata1:16M;ibdata2:16M:autoextend:max:1G'
+        - '--innodb-file-per-table=ON'
+        - '--sort-buffer-size=512MB'
+        - '--transaction-isolation=READ-COMMITTED'
+        - '--default-time-zone=+00:00'
+        - '--innodb-file-format=Barracuda'
+        - '--enforce-gtid-consistency=ON'
+        - '--gtid_mode=ON'
+
+      resources:
+        requests:
+          memory: "1024M"
+        limits:
+          memory: "4096M"
+      volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: mysql-data
+
+  volumes:
+    - name: mysql-data
+      persistentVolumeClaim:
+        claimName: mysql-database-data-devtool-pvc

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smart-community-map-deployment
+  namespace: dev-test
+  labels:
+    app: smart-community-map 
+    version: 1.0.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: smart-community-map
+      version: 1.0.0
+  template:
+    metadata:
+      labels:
+        app: smart-community-map
+        version: 1.0.0
+    spec:
+      containers:
+        - name: smart-community-map
+          image: 192.168.70.225/smart-map:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+            - containerPort: 25001
+            - containerPort: 25002
+            - containerPort: 25003
+          volumeMounts:
+            - name: time-zone
+              mountPath: /etc/localtime
+              readOnly: true
+      volumes:
+        - name: time-zone
+          hostPath:
+            path: /etc/localtime
+
