@@ -1,0 +1,116 @@
+一、git 创建仓库并上传更新代码命令 更新就是从新提交一次原来的文件他会自动覆盖
+ 1，git init    // 创建仓库
+ 2 ，单个文件git add 文件名.后缀名 如 myFormgit   所有文件 git add .//添加本地库
+ 3，git commit -m“第一次提交” //备注推送信息
+ 4， git remote add origin https://github.com/qaz1314wl/78788.git  // 添加仓库地址如果已经添加了这部不需要
+ 5， git push -u origin master //推送
+ 
+二,git下载或更新本地代码
+ 1， git clone https://github.com/qaz1314wl/MyForm.git  //下载代码
+ 2， git push //跟新代码
+
+
+三、 创建test分支提交步骤
+
+1.列出所有分支
+
+# git branch -a
+
+2.创建test分支 ? ? ? ??
+
+# git branch t 
+
+3.切换到test分支: ? ? ? ? ? ?
+
+# git checkout t 
+
+4.添加add修改:
+
+# git add .
+
+5.添加commit注释
+
+# git commit -m "第一次提交代码"
+
+6.提交到服务器
+
+# git push origin t ?
+
+?
+
+二、将test分支合并到master本地分支
+
+1.创建test分支
+
+# git branch t 
+
+2.切换到t 分支
+
+# git checkout t 
+
+3.在t分支添加一个readme.txt文件
+
+# touch readme.txt
+
+# git add readme.txt
+
+4.提交commit本地文件
+
+# git commit -m “增加readme.txt”
+
+5.切换到master分支
+
+# git checkout master
+
+6.把t 分支合并到master分支
+
+# git merge t 
+
+7.提交master分支到服务器
+
+# git push origin master
+
+?
+
+8.删除test分支
+
+# git branch -d t 
+
+
+
+ 
+Git 清除本地 remotes/origin/*
+2019-04-22 15:54:30 songyuequan 阅读数 712更多
+分类专栏： Git旁通
+版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+本文链接：https://blog.csdn.net/songyuequan/article/details/89453554
+由于项目中使用Feature Branches 工作流，所以会有很多分支
+长时间运行后，会有很多分支
+但是这些分支，在服务端已经删除
+git remote prune origin
+
+
+
+在使用git bash指令将项目上传到github时，总是遇到一些错误无法解决。
+下面是我遇到的一个问题
+error: src refspec master does not match any.
+error: failed to push some refs to 'git@github.com:hahaha/ftpmanage.git'
+?问题的内容是：
+
+错误：SRC ReFSPEC主控器不匹配任何。
+错误：未能将某些引用推到'git @ Github.com：HaHaa/ftpMal.git’
+
+也就是仓库为空。
+
+解决办法：
+
+利用git add xxx.py 指令，将所有的文件全部都添加，然后再进行git commit -m "init"将所有的文件commit,
+
+git commit -m "init"
+然后在执行
+
+$ git remote add origin xxxxxxxx.git
+最后使用
+
+$ git push -u origin master
+ 
